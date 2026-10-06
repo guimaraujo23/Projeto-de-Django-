@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Gestão Financeira</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <!-- CSS Externo -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+
+</head>
+<body>
+
+    <div class="card-auth">
+        <div class="text-center mb-4">
+            <h3 class="fw-bold text-dark"><i class="bi bi-key-fill text-primary"></i> Entrar</h3>
+            <p class="text-muted small m-0">Acesse sua conta financeira</p>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="acessar">Acessar</button>
+        </form>
+
+        <hr class="my-4">
+
+        <p class="text-center mb-0 text-muted small">
+            Ainda não tem conta? <a href="{% url 'registrar' %}" class="fw-bold text-primary text-decoration-none">Registar-se</a>
+        </p>
+    </div>
+
+</body>
+</html>

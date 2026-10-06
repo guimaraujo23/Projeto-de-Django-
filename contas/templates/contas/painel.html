@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Financeiro</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    /* Fundo moderno com gradiente e padrão suave */
+    body {
+      background: linear-gradient(135deg, #000000 0%, #fd9e10 100%);
+      min-height: 100vh;
+      color: #ece8e8;
+    }
+
+    /* Estilo para os cards brancos destacarem do fundo */
+    .card-custom {
+      background-color: #df0909;
+      color: #fffbfb;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgb(253, 253, 253);
+      border: none;
+    }
+
+    /* Header / Navbar */
+    .navbar-custom {
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(242, 144, 7, 0.826);
+    }
+  </style>
+
+</head>
+
+<body class="bg-light">
+  <!-- 🌐 HEADER / NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-custom sticky-top mb-4">
+    <div class="container">
+      <a class="navbar-brand fw-bold text-primary d-flex align-items-center gap-2 text-warning" href="{% url 'painel' %}">
+        <i class="bi bi-wallet2 "></i> Finanças Personal
+      </a>
+
+      <div class="d-flex align-items-center gap-3">
+        <span class="text-light small">
+          <i class="bi bi-person-circle"></i> <strong>{{ request.user.username }}</strong>
+        </span>
+        <form action="{% url 'logout' %}" method="post" class="m-0">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill">
+            <i class="bi bi-box-arrow-right"></i> Sair
+          </button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <span class="text-muted. text-warning ">Olá, <strong>{{ request.user.username }}</strong>!</span>
+
+      <form action="{% url 'logout' %}" method="post" class="d-inline">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-warning btn-sm">🚪 Sair (Logout)</button>
+      </form>
+    </div>
+
+    <h1 class="mb-4 text-center fw-bold">💰 Gestão Financeira</h1>
+
+    <!-- CARDS DE RESUMO -->
+    <div class="row mb-4">
+      <div class="col-md-4">
+        <div class="card text-white bg-success shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Receitas 📈</h5>
+            <h3 class="card-text">R$ {{ receitas|floatformat:2 }}</h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card text-white bg-danger shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Despesas 📉</h5>
+            <h3 class="card-text">R$ {{ despesas|floatformat:2 }}</h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card text-white bg-primary shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Saldo Total 💵</h5>
+            <h3 class="card-text">R$ {{ saldo|floatformat:2 }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- FORMULÁRIO DE CADASTRO -->
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+          <div class="card-header bg-dark text-white font-weight-bold">
+            Nova Transação
+          </div>
+          <div class="card-body">
+            <form method="POST">
+              {% csrf_token %}
+              <div class="mb-3">
+                <label class="form-label">Descrição</label>
+                {{ form.descricao }}
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Valor (R$)</label>
+                {{ form.valor }}
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Tipo</label>
+                {{ form.tipo }}
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Categoria</label>
+                {{ form.categoria }}
+              </div>
+              <button type="submit" class="btn btn-success w-100">Adicionar Transação</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- TABELA DE TRANSAÇÕES -->
+      <div class="col-md-8">
+        <div class="card shadow-sm">
+          <div class="card-header bg-dark text-white font-weight-bold">
+            Histórico de Transações
+          </div>
+          <div class="card-body p-0">
+            <table class="table table-hover align-middle mb-0">
+              <thead class="table-dark">
+                <tr>
+                  <th>Descrição</th>
+                  <th>Categoria</th>
+                  <th>Tipo</th>
+                  <th>Valor</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in transacoes %}
+                <tr>
+                  <!-- 1. Descrição -->
+                  <td>{{ item.descricao }}</td>
+
+                  <!-- 2. Categoria -->
+                  <td><span class="badge bg-secondary">{{ item.categoria.nome }}</span></td>
+
+                  <!-- 3. Tipo -->
+                  <td>
+                    {% if item.tipo == 'R' %}
+                    <span class="badge bg-success">Receita</span>
+                    {% else %}
+                    <span class="badge bg-danger">Despesa</span>
+                    {% endif %}
+                  </td>
+
+                  <!-- 4. Valor -->
+                  <td class="fw-bold {% if item.tipo == 'R' %}text-success{% else %}text-danger{% endif %}">
+                    R$ {{ item.valor|floatformat:2 }}
+                  </td>
+
+                  <!-- 5. Ações (Editar e Apagar por ÚLTIMO) -->
+                  <td>
+                    <a href="{% url 'editar_transacao' item.pk %}" class="btn btn-warning btn-sm me-1">
+                      ✏️ Editar
+                    </a>
+                    <a href="{% url 'deletar_transacao' item.pk %}" class="btn btn-danger btn-sm"
+                      onclick="return confirm('Tem certeza de que deseja apagar esta transação?');">
+                      🗑️ Apagar
+                    </a>
+                  </td>
+                </tr>
+                {% empty %}
+                <tr>
+                  <td colspan="5" class="text-center text-muted py-3">Nenhuma transação cadastrada.</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

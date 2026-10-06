@@ -1,0 +1,70 @@
+body {
+    background: linear-gradient(135deg, #f49302 0%, #000000 100%) !important;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+.card-auth {
+    background-color: #dbdbdb;
+    border-radius: 12px;
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 10px 25px rgba(248, 232, 4, 0.822);
+}
+
+.card-auth p {
+    margin-bottom: 1rem;
+}
+
+.card-auth label {
+    display: block;
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 0.3rem;
+}
+
+.card-auth input[type="text"],
+.card-auth input[type="password"] {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid #edf109;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 0.95rem;
+}
+
+button[type="submit"] {
+    background-color: #f77307;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+}
+
+button[type="submit"]:hover {
+    background-color: #090801;
+}
+
+/* Estiliza o link de cadastro */
+.register-link {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.register-link a {
+    color: #9e7676;
+    text-decoration: none;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
