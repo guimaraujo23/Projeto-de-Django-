@@ -20,13 +20,15 @@ Paginas de login,registro de usuario,funcionalidades de editar,excluir e incluir
 
 Listagem das principais ferramentas, linguagens e frameworks utilizados:
 
-- **Linguagem:**  Python 
-- **Framework:**  Django
-- **Banco de Dados:** SQLite3
-- **Estilização:** Bootstrap5 / CSS
-
+-**Linguagem:** Python 3.x
+- **Framework Web:** Django
+- **Frontend:** HTML5, CSS3 (`style.css`)
+- **Banco de Dados:** SQLite3 (`db.sqlite3`)
+- **Ambiente Virtual:** `venv`
 ---
 
 ## 🚀 Execução do projeto 
 
+<img src="" alt="">
 
+<img src="" alt="">
