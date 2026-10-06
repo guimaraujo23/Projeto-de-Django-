@@ -29,6 +29,8 @@ Listagem das principais ferramentas, linguagens e frameworks utilizados:
 
 ## 🚀 Execução do projeto 
 
-<img src="" alt="">
+<img width="1535" height="690" alt="Captura de tela 2026-10-06 093840" src="https://github.com/user-attachments/assets/2a6ac3cb-0cc3-441b-9663-5e719d74d545" />
 
-<img src="" alt="">
+
+<img width="1535" height="701" alt="Captura de tela 2026-10-06 093904" src="https://github.com/user-attachments/assets/54c62268-13ca-401f-8388-48b1dbdb0dbb" />
+
